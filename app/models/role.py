@@ -1,4 +1,4 @@
-from sqlalchemy import Column,String,Integer, Enum
+from sqlalchemy import Column,Integer, Enum, ForeignKey
 from sqlalchemy.orm import declarative_base,relationship
 import enum
 from associations import user_group_role_assossiation_table,user_project_role_assossiation_table
@@ -14,6 +14,7 @@ class GroupRoleEnum(enum.Enum):
     B27='b27'
     B26='b26'
     B25='b25'
+    ADMIN='admin'
 
 class RoleType(enum.Enum):
     GROUP='group'
@@ -27,7 +28,8 @@ class ProjectRole(Base):
         default=ProjectRoleEnum.MEMBER,
         nullable=False
     )
-    project=Column(String(),nullable=False)
+    projectid=Column(Integer(),ForeignKey('projects.id',ondelete="CASCADE"),nullable=False)
+    project=relationship('Project',back_populates="roles")
     users=relationship('User',secondary=user_project_role_assossiation_table,back_populates='project_roles')
 
 class GroupRole(Base):

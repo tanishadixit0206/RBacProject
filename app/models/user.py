@@ -10,6 +10,7 @@ class User(Base):
     id=Column(Integer(),primary_key=True)
     username=Column(String(),nullable=False,unique=True)
     email=Column(String(),unique=True)
+    password=Column(String(),nullable=False)
     enrollment_no=Column(Integer(),unique=True,nullable=False)
     github_id=Column(String(),unique=True,nullable=True)
     phone_no=Column(Integer(),nullable=True)

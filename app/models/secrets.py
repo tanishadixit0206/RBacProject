@@ -5,7 +5,7 @@ Base=declarative_base()
 
 class SecretsFile(Base):
     id=Column(Integer(),primary_key=True)
-    name=Column(String(),nullable=False)
+    name=Column(String(),unique=True,nullable=False)
     content=Column(LargeBinary,nullable=False)
 
 class SecretKey(Base):
